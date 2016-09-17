@@ -7,25 +7,35 @@ var {
   Text,
   StyleSheet
 } = ReactNative;
+var Moment = require('moment');
 var DayItem = require('./src/day-item');
 
 
-
-var DAYS = ["Sunday","Monday"];
 
 
 // Create a react component
 var Weekdays = React.createClass({
   render: function(){
     return(
-      <View>
-        <Text style={styles.container}>
+      <View  style={styles.container}>
+        <Text>
           Days of the Week:
         </Text>
-        <DayItem day={DAYS[0]}/>
-        <DayItem day={DAYS[1]}/>
+        {this.renderDays()}
+
       </View>
     );
+  },
+  renderDays: function(){
+    // var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    // Creating it dynamically
+    var daysItems =[]
+    for(var i=0; i< 7; i++){
+      var day = Moment().add(i,'days').format('dddd'); // add i amnt of days
+      daysItems.push(<DayItem day={day} daysUntil={i} />);
+    }
+
+    return daysItems;
   }
 });
 
