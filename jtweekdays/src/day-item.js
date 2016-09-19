@@ -22,6 +22,9 @@ var DayItem = React.createClass({
   },
   color: function(){
     var opacity = 1 / this.props.daysUntil;
+    if(this.props.daysUntil == 0){
+      opacity = 1
+    }
     return 'rgba(0,0,0,'+ opacity + ')';
   },
   fontWeight: function(){

@@ -3,6 +3,7 @@ var ReactNative = require('react-native');
 var {
   AppRegistry,
   MapView,
+  ScrollView,
   View,
   Text,
   StyleSheet
@@ -21,7 +22,9 @@ var Weekdays = React.createClass({
         <Text>
           Days of the Week:
         </Text>
-        {this.renderDays()}
+        <ScrollView>
+          {this.renderDays()}
+        </ScrollView>
 
       </View>
     );
@@ -32,7 +35,7 @@ var Weekdays = React.createClass({
     var daysItems =[]
     for(var i=0; i< 7; i++){
       var day = Moment().add(i,'days').format('dddd'); // add i amnt of days
-      daysItems.push(<DayItem day={day} daysUntil={i} />);
+      daysItems.push(<DayItem day={day} daysUntil={i} key={i}/>);
     }
 
     return daysItems;
