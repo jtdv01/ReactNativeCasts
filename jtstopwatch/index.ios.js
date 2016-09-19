@@ -22,11 +22,11 @@ var StopWatch = React.createClass({
     return(
     <View style={styles.container}>
       <View style={[styles.header,this.border('yellow')]}>
-        <Text style={this.border('red')}>
+        <Text style={[styles.timeWrapper, this.border('red')]}>
            00.00.00
         </Text>
 
-        <View style={this.border('green')}>
+        <View style={[styles.buttonWrapper,this.border('green')]}>
           {this.startStopButton()}
           {this.lapButton()}
         </View>
@@ -44,7 +44,7 @@ var StopWatch = React.createClass({
       return(
       <View>
         <Text>
-          Start stop
+          Start
         </Text>
       </View>
     );
@@ -77,7 +77,21 @@ const styles = StyleSheet.create({
   },
   footer:{
     flex:1
+  },
+  timeWrapper: {
+    flex:5
+  },
+  buttonWrapper: {
+    flex:3,
+    flexDirection:"row",
+    justifyContent:'space-around',
+    alignItems:'center'
   }
 });
+/*
+Timewrapper takes up 5/8ths of the available space
+Button wrapper takes 3/8ths
+*/
+
 
 AppRegistry.registerComponent('jtstopwatch', () => StopWatch);
