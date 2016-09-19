@@ -19,12 +19,17 @@ import {
   - use of mixins
 */
 var StopWatch = React.createClass({
+  getInitialState: function(){
+    return{
+      timeElapsed: null
+    }
+  },
   render: function(){
     return(
     <View style={styles.container}>
       <View style={[styles.header,this.border('yellow')]}>
         <Text style={[styles.timeWrapper, this.border('red')]}>
-           00.00.00
+           {this.state.timeElapsed}
         </Text>
 
         <View style={[styles.buttonWrapper,this.border('green')]}>
@@ -62,9 +67,21 @@ var StopWatch = React.createClass({
     );
   },
   handleStartPress: function(){
-    var x = 1;
-    debugger;
-    console.log("foo!");
+    var startTime = new Date();
+
+    // StandardJS library call
+    // call the function every 30ms
+    // new Date gets time elapsed
+    // but startTime stays the same!
+    setInterval(() => {
+      this.setState({
+        timeElapsed: new Date() - startTime
+      });
+    }, 30);
+
+    // var x = 1;
+    // debugger;
+    // console.log("foo!");
   },
   border: function(color){
     return{
