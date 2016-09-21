@@ -13,6 +13,8 @@ import {
   View
 } from 'react-native';
 
+import convert from 'minutes-seconds-milliseconds';
+
 /*
   When creating a class, its better to use the older js syntax
   - because we can use `this`
@@ -28,9 +30,11 @@ var StopWatch = React.createClass({
     return(
     <View style={styles.container}>
       <View style={[styles.header,this.border('yellow')]}>
-        <Text style={[styles.timeWrapper, this.border('red')]}>
-           {this.state.timeElapsed}
-        </Text>
+        <View style={[styles.timeWrapper, this.border('red')]}>
+          <Text>
+           {convert(this.state.timeElapsed)}
+          </Text>
+        </View>
 
         <View style={[styles.buttonWrapper,this.border('green')]}>
           {this.startStopButton()}
@@ -104,7 +108,10 @@ const styles = StyleSheet.create({
     flex:1
   },
   timeWrapper: {
-    flex:5
+    flex:5,
+    flexDirection:"row",
+    alignItems:'center',
+    justifyContent:"space-around"
   },
   buttonWrapper: {
     flex:3,
