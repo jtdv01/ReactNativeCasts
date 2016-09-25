@@ -24,7 +24,9 @@ var StopWatch = React.createClass({
   getInitialState: function(){
     return{
       timeElapsed: null,
-      running: false
+      running: false,
+      startTime: null,
+      laps: []
     }
   },
   render: function(){
@@ -44,12 +46,24 @@ var StopWatch = React.createClass({
       </View>
 
       <View style={[styles.footer]}>
-        <Text>
-          I am list of laps
-        </Text>
+          {this.laps()}
       </View>
     </View>
     );
+  },
+  laps: function(){
+    return this.state.laps.map(function(time,index){
+      return(
+        <View>
+          <Text>
+            Lap #{index + 1}
+          </Text>
+          <Text>
+            {convert(time)}
+          </Text>
+        </View>
+      );
+    });
   },
   startStopButton: function(){
       var style = this.state.running ? styles.stopButton : styles.startButton;
@@ -68,12 +82,26 @@ var StopWatch = React.createClass({
   lapButton: function(){
       return(
       <TouchableHighlight
-        style={styles.button}>
+        style={styles.button}
+        underlayColor="gray"
+        onPress={this.handleLapPress}
+        >
+
         <Text>
           Lap.
         </Text>
       </TouchableHighlight>
     );
+  },
+  handleLapPress: function(){
+    var lap = this.state.timeElapsed;
+    // Never modify the state using push!
+    // concat is safer, which is like functional,
+    // returns a new array
+    this.setState({
+      startTime: new Date(),
+      laps: this.state.laps.concat([lap])
+    });
   },
   handleStartPress: function(){
     if(this.state.running){
@@ -83,6 +111,7 @@ var StopWatch = React.createClass({
     }
 
     var startTime = new Date();
+    this.setState({startTime: new Date()});
 
     // StandardJS library call
     // call the function every 30ms
@@ -90,7 +119,7 @@ var StopWatch = React.createClass({
     // but startTime stays the same!
     this.interval = setInterval(() => {
       this.setState({
-        timeElapsed: new Date() - startTime,
+        timeElapsed: new Date() - this.state.startTime,
         running: true
       });
     }, 30);
