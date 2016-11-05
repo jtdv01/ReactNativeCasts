@@ -1,0 +1,3 @@
+rootProject.name = 'jtweather'
+
+include ':app'
