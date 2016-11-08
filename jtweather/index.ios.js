@@ -1,16 +1,31 @@
 import React,{ Component } from 'react';
 import {
-  AppRegistry,
-  MapView,
+  AppRegistry, MapView,
   View,
 	TextView,
   StyleSheet
 } from 'react-native';
 
 var Weather = React.createClass({
+	getInitialState: function(){
+		return {
+			pin: {
+				longitude: 0 ,
+				latitude: 0
+			}
+		};
+	},
   render: function(){
-    return(
+ 		var pins = [
+		{
+			latitude: 37,
+			longitude: -95
+		}
+		];   
+	
+		return(
 			<MapView
+				annotations={[this.state.pin]}	
 				onRegionChangeComplete={this.onRegionChangeComplete}
 				style={styles.map}
 				>
@@ -18,8 +33,12 @@ var Weather = React.createClass({
 		); 
 	},
 	onRegionChangeComplete: function(region){
-		console.log(region);
-		// debugger;
+		this.setState({
+			pin: {
+				longitude: region.longitude,
+				latitude: region.latitude	
+			}
+		});
 	}
 });
 
