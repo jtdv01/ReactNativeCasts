@@ -5,11 +5,14 @@ import {
   StyleSheet
 } from 'react-native';
 
+import Signin from './components/signin';
+
 module.exports = React.createClass({
   render: function(){
     return (
       <View style={styles.container}>
-        <Text> I am both an iOS and Android!</Text>
+        
+        <Signin />
       </View>
     );
   }
